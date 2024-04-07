@@ -5,6 +5,7 @@ from catalog.models import Category, Product
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        Category.objects.all().delete()
         category_list = [
             {'name': "Electronics"},
             {'name': "Clothing"},
@@ -18,6 +19,8 @@ class Command(BaseCommand):
             category_for_create.append(Category(**category_item))
 
         Category.objects.bulk_create(category_for_create)
+
+        Product.objects.all().delete()
 
         first_category = Category.objects.first()
 
